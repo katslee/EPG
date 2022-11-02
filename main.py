@@ -24,11 +24,26 @@ def get_file_list(dirname, fileext):
 
 dir_name = 'E:/Downloads/'
 file_ext = '*.zip'
+task_list = [['/EPGSync/task1A_input1/','/EPGSync/task1A_output1/','/EPGSync/task1A_output2/','/EPGSync/task1A_output3/','/EPGSync/task1A_output4'],
+             ['/EPGSync/task1B_input1/','/EPGSync/task1B_output1/','/EPGSync/task1B_output2/','/EPGSync/task1B_output3/','/EPGSync/task1B_output4'],
+             ['/EPGSync/task1C_input1/','/EPGSync/task1C_output1/','/EPGSync/task1C_output2/','/EPGSync/task1C_output3/','/EPGSync/task1C_output4'],
+             ['/EPGSync/task1D_input1/','/EPGSync/task1D_output1/','/EPGSync/task1D_output2/','/EPGSync/task1D_output3/','/EPGSync/task1D_output4'],
+             ['/EPGSync/task2A_input1/','/EPGSync/task2A_output1/'],
+             ['/EPGSync/task2B_input1/','/EPGSync/task2B_output1/'],
+             ['/EPGSync/task3_input1/','/EPGSync/task3_output1/']]
 
-init_file_list = get_file_list(dir_name,file_ext)
+#init_file_list = get_file_list(dir_name,file_ext)
 
-check_file_list = get_file_list(dir_name,file_ext)
-for check_file in check_file_list:
-    if not (check_file in init_file_list):
+#check_file_list = get_file_list(dir_name,file_ext)
+#for check_file in check_file_list:
+#    if not (check_file in init_file_list):
 #        copy_file_list.append(check_file)
 
+for task in task_list:
+    folder_in = task[0]
+    print("folder_in :" + folder_in)
+    for i in range(1,len(task)):
+        print(task[i])
+    print()
+
+print("Done")
