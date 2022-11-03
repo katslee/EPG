@@ -22,9 +22,11 @@ def get_file_list(dirname, fileext):
 
 # main
 
-folder_prefix = '/Users/Kats/Downloads/EPG'
-file_ext = '*.zip'
+#folder_prefix = '/Users/Kats/Downloads/EPG'
+folder_prefix = 'E:/Downloads/'
+file_ext = '*.txt'
 init_file_list = []
+copy_file_list = []
 task_list = [['/EPGSync/task1A_input1/','/EPGSync/task1A_output1/','/EPGSync/task1A_output2/','/EPGSync/task1A_output3/','/EPGSync/task1A_output4'],
              ['/EPGSync/task1B_input1/','/EPGSync/task1B_output1/','/EPGSync/task1B_output2/','/EPGSync/task1B_output3/','/EPGSync/task1B_output4'],
              ['/EPGSync/task1C_input1/','/EPGSync/task1C_output1/','/EPGSync/task1C_output2/','/EPGSync/task1C_output3/','/EPGSync/task1C_output4'],
@@ -51,9 +53,8 @@ for task in task_list:
     for i in range(1,len(task)):
         check_file_list = get_file_list(folder_prefix + task[i], file_ext)
         for check_file in check_file_list:
-            if not(check_file in init_file_list[i]):
+            if not(check_file in init_file_list[0]):
                 copy_file_list.append(check_file)
 
-
-
+print(copy_file_list)
 print("Done")
