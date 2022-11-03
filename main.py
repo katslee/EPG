@@ -23,8 +23,8 @@ def get_file_list(dirname, fileext):
 
 # main
 
-folder_prefix = '/Users/Kats/Downloads/EPG'
-#folder_prefix = 'E:/Downloads/'
+#folder_prefix = '/Users/Kats/Downloads/EPG'
+folder_prefix = 'E:/Downloads/'
 file_ext = '*.txt'
 init_file_list = []
 copy_file_list = []
@@ -50,10 +50,15 @@ for task in task_list:
     folder_in = task[0]
     init_file_list.append(get_file_list(folder_prefix + folder_in, file_ext))
 
-for i in (0,len(task_list)):
-    check_file_list = get_file_list(folder_prefix + task[i], file_ext)
-    copy_file_list = [x for x in check_file_list + init_file_list[i] if x not in check_file_list or x not in init_file_list[0]]
-    if len(copy_file_list) > 0:
-        print(copy_file_list)
+for task in task_list:
+    check_file_list = get_file_list(folder_prefix + task[0], file_ext)
+    i = task_list.index(task)
+    new_files = [x for x in check_file_list + init_file_list[i] if x not in check_file_list or x not in init_file_list[i]]
+    if new_files != []:
+        for new_file in new_files:
+            j = new_file.find('@')
+            copy_file_list.append([task, new_file[:j]])
+if len(copy_file_list) > 0:
+    print(copy_file_list)
 
 print("Done")
