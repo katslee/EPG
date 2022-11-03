@@ -43,22 +43,21 @@ task_list = [['/EPGSync/task1A_input1/','/EPGSync/task1A_output1/','/EPGSync/tas
 #    if not (check_file in init_file_list):
 #        copy_file_list.append(check_file)
 
-print(len(task_list))
-
 # Get init file list for task input folder
 for task in task_list:
     folder_in = task[0]
     init_file_list.append(get_file_list(folder_prefix + folder_in, file_ext))
 
-for task in task_list:
-    check_file_list = get_file_list(folder_prefix + task[0], file_ext)
-    i = task_list.index(task)
-    new_files = [x for x in check_file_list + init_file_list[i] if x not in check_file_list or x not in init_file_list[i]]
-    if new_files != []:
-        for new_file in new_files:
-            j = new_file.find('@')
-            copy_file_list.append([task, new_file[:j]])
-if len(copy_file_list) > 0:
-    print(copy_file_list)
+for ii in range(100):
+    for task in task_list:
+        check_file_list = get_file_list(folder_prefix + task[0], file_ext)
+        i = task_list.index(task)
+        new_files = [x for x in check_file_list + init_file_list[i] if x not in check_file_list or x not in init_file_list[i]]
+        if new_files != []:
+            for new_file in new_files:
+                copy_file_list.append([task, new_file[:new_file.find('@')]])
+        if len(copy_file_list) > 0:
+            print(copy_file_list)
+        time.sleep(5)
 
 print("Done")
