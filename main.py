@@ -26,7 +26,7 @@ def get_file_list(dirname, fileext):
 #folder_prefix = '/Users/Kats/Downloads/EPG'
 folder_prefix = 'E:/Downloads/'
 file_ext = '*.txt'
-init_file_list = []
+current_file_list = []
 copy_file_list = []
 task_list = [['/EPGSync/task1A_input1/','/EPGSync/task1A_output1/','/EPGSync/task1A_output2/','/EPGSync/task1A_output3/','/EPGSync/task1A_output4'],
              ['/EPGSync/task1B_input1/','/EPGSync/task1B_output1/','/EPGSync/task1B_output2/','/EPGSync/task1B_output3/','/EPGSync/task1B_output4'],
@@ -46,13 +46,13 @@ task_list = [['/EPGSync/task1A_input1/','/EPGSync/task1A_output1/','/EPGSync/tas
 # Get init file list for task input folder
 for task in task_list:
     folder_in = task[0]
-    init_file_list.append(get_file_list(folder_prefix + folder_in, file_ext))
+    current_file_list.append(get_file_list(folder_prefix + folder_in, file_ext))
 
 for ii in range(100):
     for task in task_list:
         check_file_list = get_file_list(folder_prefix + task[0], file_ext)
         i = task_list.index(task)
-        new_files = [x for x in check_file_list + init_file_list[i] if x not in check_file_list or x not in init_file_list[i]]
+        new_files = list(set(check_file_list).difference(current_file_list[i]))
         if new_files != []:
             for new_file in new_files:
                 copy_file_list.append([task, new_file[:new_file.find('@')]])
