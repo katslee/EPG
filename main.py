@@ -20,6 +20,12 @@ def get_file_list(dirname, fileext):
         file_list.append(file_path + '@' + timestamp_str)
     return file_list
 
+def copy_file():
+    global copy_file_list
+    global task_list
+
+    for cp_file in copy_file_list:
+        print(cp_file)
 
 # main
 
@@ -58,6 +64,9 @@ for ii in range(100):
                 copy_file_list.append([task, new_file[:new_file.find('@')]])
         if len(copy_file_list) > 0:
             print(copy_file_list)
-        time.sleep(5)
+        time.sleep(1)
+
+        if len(copy_file_list) > 0:
+            copy_file()
 
 print("Done")
