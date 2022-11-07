@@ -64,7 +64,7 @@ for ii in range(100):
                 copy_file_list.append([task, new_file[:new_file.find('@')]])
         if len(copy_file_list) > 0:
             print(copy_file_list)
-        time.sleep(1)
+        time.sleep(5)
 
         if len(copy_file_list) > 0:
             copy_file()
