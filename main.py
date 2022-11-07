@@ -32,8 +32,8 @@ def copy_file():
 
 # main
 
-folder_prefix = '/Users/Kats/Downloads/EPG'
-#folder_prefix = 'E:/Downloads/'
+#folder_prefix = '/Users/Kats/Downloads/EPG'
+folder_prefix = 'E:/Downloads/'
 file_ext = '*.txt'
 current_file_list = []
 copy_file_list = []
@@ -45,13 +45,6 @@ task_list = [['/EPGSync/task1A_input1/','/EPGSync/task1A_output1/','/EPGSync/tas
              ['/EPGSync/task2A_input1/','/EPGSync/task2A_output1/'],
              ['/EPGSync/task2B_input1/','/EPGSync/task2B_output1/'],
              ['/EPGSync/task3_input1/','/EPGSync/task3_output1/']]
-
-#init_file_list = get_file_list(dir_name,file_ext)
-
-#check_file_list = get_file_list(dir_name,file_ext)
-#for check_file in check_file_list:
-#    if not (check_file in init_file_list):
-#        copy_file_list.append(check_file)
 
 # Get init file list for task input folder
 for task in task_list:
@@ -66,7 +59,10 @@ for ii in range(100):
         if new_files != []:
             for new_file in new_files:
                 copy_file_list.append([task, new_file[:new_file.find('@')]])
-        del_file_list = list(set(current_file_list[i]).difference(check_file_list))
+        del_files = list(set(current_file_list[i]).difference(check_file_list))
+        if del_files != []:
+            for del_file in del_files:
+                del_file_list.append([task, del_file[:del_file.find('@')]])
     if len(copy_file_list) > 0:
         print("New files are found.")
         copy_file()
