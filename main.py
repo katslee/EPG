@@ -23,17 +23,21 @@ def get_file_list(dirname, fileext):
 def copy_file():
     global copy_file_list
     global task_list
+    global current_file_list
 
     for cp_file in copy_file_list:
         print(cp_file)
+        copy_file_list.remove(cp_file)
+        current_file_list.append(cp_file)
 
 # main
 
-#folder_prefix = '/Users/Kats/Downloads/EPG'
-folder_prefix = 'E:/Downloads/'
+folder_prefix = '/Users/Kats/Downloads/EPG'
+#folder_prefix = 'E:/Downloads/'
 file_ext = '*.txt'
 current_file_list = []
 copy_file_list = []
+del_file_list = []
 task_list = [['/EPGSync/task1A_input1/','/EPGSync/task1A_output1/','/EPGSync/task1A_output2/','/EPGSync/task1A_output3/','/EPGSync/task1A_output4'],
              ['/EPGSync/task1B_input1/','/EPGSync/task1B_output1/','/EPGSync/task1B_output2/','/EPGSync/task1B_output3/','/EPGSync/task1B_output4'],
              ['/EPGSync/task1C_input1/','/EPGSync/task1C_output1/','/EPGSync/task1C_output2/','/EPGSync/task1C_output3/','/EPGSync/task1C_output4'],
@@ -62,11 +66,16 @@ for ii in range(100):
         if new_files != []:
             for new_file in new_files:
                 copy_file_list.append([task, new_file[:new_file.find('@')]])
-        if len(copy_file_list) > 0:
-            print(copy_file_list)
-        time.sleep(5)
-
-        if len(copy_file_list) > 0:
-            copy_file()
+        del_file_list = list(set(current_file_list[i]).difference(check_file_list))
+    if len(copy_file_list) > 0:
+        print("New files are found.")
+        copy_file()
+        print(copy_file_list)
+    if len(del_file_list) > 0:
+        print("Some files are disappear.")
+        for delfile in del_file_list:
+            print("Remove " + delfile)
+            current_file_list.remove(delfile)
+    time.sleep(1)
 
 print("Done")
