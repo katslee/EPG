@@ -29,7 +29,9 @@ def copy_file():
         print(cp_file)
         copy_file_list.remove(cp_file)
         index = task_list.index(cp_file[0])
-        current_file_list[index].append(cp_file[1]) # append should include timestamp, find it
+        timestamp_str = time.strftime('%m/%d/%Y %H:%M:%S',
+                                      time.gmtime(os.path.getmtime(cp_file[1])))
+        current_file_list[index].append(cp_file[1] + '@' + timestamp_str) # append should include timestamp, find it
 
 # main
 
