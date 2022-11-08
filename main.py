@@ -28,7 +28,8 @@ def copy_file():
     for cp_file in copy_file_list:
         print(cp_file)
         copy_file_list.remove(cp_file)
-        current_file_list.append(cp_file)
+        index = task_list.index(cp_file[0])
+        current_file_list[index].append(cp_file[1]) # append should include timestamp, find it
 
 # main
 
@@ -63,6 +64,7 @@ for ii in range(100):
         if del_files != []:
             for del_file in del_files:
                 del_file_list.append([task, del_file[:del_file.find('@')]])
+
     if len(copy_file_list) > 0:
         print("New files are found.")
         copy_file()
