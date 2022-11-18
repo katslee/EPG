@@ -1,6 +1,7 @@
 import glob
 import os
 import time
+import shutil
 import functools
 
 def get_file_list(dirname, fileext):
@@ -24,19 +25,26 @@ def copy_file():
     global copy_file_list
     global task_list
     global current_file_list
+    global folder_prefix
 
     for cp_file in copy_file_list:
         print(cp_file)
+        cp_len = len(cp_file) - 1
+        cp_filename = cp_file[cp_len]
+        source = folder_prefix + cp_file[0][0] + cp_filename
+        for i in range(len(cp_file[0]) - 1) :
+            target = folder_prefix + cp_file[0][i + 1]
+            shutil.copy2(source, target)
         copy_file_list.remove(cp_file)
         index = task_list.index(cp_file[0])
         timestamp_str = time.strftime('%m/%d/%Y %H:%M:%S',
-                                      time.gmtime(os.path.getmtime(cp_file[1])))
-        current_file_list[index].append(cp_file[1] + '@' + timestamp_str) # append should include timestamp, find it
+                                      time.gmtime(os.path.getmtime(folder_prefix + cp_file[0][1] + cp_file[1])))
+        current_file_list[index].append(folder_prefix + cp_file[0][1] + cp_file[1] + '@' + timestamp_str) # append should include timestamp, find it
 
 # main
 
-#folder_prefix = '/Users/Kats/Downloads/EPG'
-folder_prefix = 'E:/Downloads/'
+folder_prefix = '/Users/Kats/Downloads/EPG'
+#folder_prefix = 'E:/Downloads/'
 file_ext = '*.txt'
 current_file_list = []
 copy_file_list = []
@@ -61,7 +69,8 @@ for ii in range(100):
         new_files = list(set(check_file_list).difference(current_file_list[i]))
         if new_files != []:
             for new_file in new_files:
-                copy_file_list.append([task, new_file[:new_file.find('@')]])
+                new_file = new_file[new_file.index(task[0]) + len(task[0]):new_file.find('@')]
+                copy_file_list.append([task, new_file])
         del_files = list(set(current_file_list[i]).difference(check_file_list))
         if del_files != []:
             for del_file in del_files:
