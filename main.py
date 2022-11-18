@@ -28,18 +28,21 @@ def copy_file():
     global folder_prefix
 
     for cp_file in copy_file_list:
-        print(cp_file)
         cp_len = len(cp_file) - 1
         cp_filename = cp_file[cp_len]
         source = folder_prefix + cp_file[0][0] + cp_filename
+        print(source)
         for i in range(len(cp_file[0]) - 1) :
             target = folder_prefix + cp_file[0][i + 1]
+            print(target)
             shutil.copy2(source, target)
         copy_file_list.remove(cp_file)
         index = task_list.index(cp_file[0])
         timestamp_str = time.strftime('%m/%d/%Y %H:%M:%S',
                                       time.gmtime(os.path.getmtime(folder_prefix + cp_file[0][1] + cp_file[1])))
-        current_file_list[index].append(folder_prefix + cp_file[0][1] + cp_file[1] + '@' + timestamp_str) # append should include timestamp, find it
+        append = folder_prefix + cp_file[0][1] + cp_file[1] + '@' + timestamp_str
+        current_file_list[index].append(folder_prefix + cp_file[0][0] + cp_file[1] + '@' + timestamp_str) # append should include timestamp, find it
+    copy_file_list = [] # clear copy_file_list after copied
 
 # main
 
@@ -62,29 +65,31 @@ for task in task_list:
     folder_in = task[0]
     current_file_list.append(get_file_list(folder_prefix + folder_in, file_ext))
 
-for ii in range(100):
+for ii in range(1000):
     for task in task_list:
+        checking_folder = folder_prefix + task[0]
         check_file_list = get_file_list(folder_prefix + task[0], file_ext)
         i = task_list.index(task)
-        new_files = list(set(check_file_list).difference(current_file_list[i]))
-        if new_files != []:
+
+#        new_files = list(set(check_file_list).difference(current_file_list[i]))
+        new_files = list(set(check_file_list) - set(current_file_list[i]))
+        new_files_len = len(new_files)
+        if len(new_files) > 0:
             for new_file in new_files:
                 new_file = new_file[new_file.index(task[0]) + len(task[0]):new_file.find('@')]
                 copy_file_list.append([task, new_file])
+
+# Remove the current_file_list item for deleted files are found
         del_files = list(set(current_file_list[i]).difference(check_file_list))
         if del_files != []:
             for del_file in del_files:
-                del_file_list.append([task, del_file[:del_file.find('@')]])
+                current_file_list[i].remove(del_file)
 
+# Copy the new files to target task folders
     if len(copy_file_list) > 0:
         print("New files are found.")
         copy_file()
-        print(copy_file_list)
-    if len(del_file_list) > 0:
-        print("Some files are disappear.")
-        for delfile in del_file_list:
-            print("Remove " + delfile)
-            current_file_list.remove(delfile)
+
     time.sleep(1)
 
 print("Done")
