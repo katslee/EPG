@@ -2,7 +2,7 @@ import glob
 import os
 import time
 import shutil
-import functools
+import logging
 
 def get_file_list(dirname, fileext):
     file_list = []
@@ -38,8 +38,10 @@ def copy_file():
             print(target)
             try:
                 shutil.copy2(source, target)
+                logging.info("Success copied : " + source + " > " + target)
             except:
-                print("Fail to copy file " + source + " to " + target)
+#                print("Fail to copy file " + source + " to " + target)
+                logging.info("Fail to copy file" + source + " to " + target)
                 copy_fail = True
         if not copy_fail:
             copy_file_list.remove(cp_file)
@@ -53,12 +55,12 @@ def copy_file():
 
 folder_prefix = '/Users/Kats/Downloads/EPG'
 #folder_prefix = 'E:/Downloads/'
-folder_prefix = ''
+#folder_prefix = ''
 file_ext = '*.txt'
 current_file_list = []
 copy_file_list = []
 del_file_list = []
-#task_list = [['/EPGSync/task1A_input1/','/EPGSync/task1A_output1/','/EPGSync/task1A_output2/','/EPGSync/task1A_output3/','/EPGSync/task1A_output4/'],
+task_list = [['/EPGSync/task1A_input1/','/EPGSync/task1A_output1/','/EPGSync/task1A_output2/','/EPGSync/task1A_output3/','/EPGSync/task1A_output4/'],
              ['/EPGSync/task1B_input1/','/EPGSync/task1B_output1/','/EPGSync/task1B_output2/','/EPGSync/task1B_output3/','/EPGSync/task1B_output4/'],
              ['/EPGSync/task1C_input1/','/EPGSync/task1C_output1/','/EPGSync/task1C_output2/','/EPGSync/task1C_output3/','/EPGSync/task1C_output4/'],
              ['/EPGSync/task1D_input1/','/EPGSync/task1D_output1/','/EPGSync/task1D_output2/','/EPGSync/task1D_output3/','/EPGSync/task1D_output4/'],
@@ -66,13 +68,18 @@ del_file_list = []
              ['/EPGSync/task2B_input1/','/EPGSync/task2B_output1/'],
              ['/EPGSync/task3_input1/','/EPGSync/task3_output1/']]
 
-task_list = [['/EPGSync/task1A_input1/','/EPG/task1A_local1/','/EPG/task1A_local2/','/EPG/task1A_local3/','/EPG/task1A_local4/'],
-             ['/EPGSync/task1B_input1/','/EPG/task1B_local1/','/EPG/task1B_local2/','/EPG/task1B_local3/','/EPG/task1B_local4/'],
-             ['/EPGSync/task1C_input1/','/EPG/task1C_local1/','/EPG/task1C_local2/','/EPG/task1C_local3/','/EPG/task1C_local4/'],
-             ['/EPGSync/task1D_input1/','/EPG/task1D_local1/','/EPG/task1D_local2/','/EPG/task1D_local3/','/EPG/task1D_local4/'],
-             ['/EPGSync/task2A_input1/','/EPG/task2A_local1/'],
-             ['/EPGSync/task2B_input1/','/EPG/task2B_local1/'],
-             ['/EPGSync/task3_input1/','/EPG/task3_local1/']]
+#task_list = [['/EPGSync/task1A_input1/','/EPG/task1A_local1/','/EPG/task1A_local2/','/EPG/task1A_local3/','/EPG/task1A_local4/'],
+#             ['/EPGSync/task1B_input1/','/EPG/task1B_local1/','/EPG/task1B_local2/','/EPG/task1B_local3/','/EPG/task1B_local4/'],
+#             ['/EPGSync/task1C_input1/','/EPG/task1C_local1/','/EPG/task1C_local2/','/EPG/task1C_local3/','/EPG/task1C_local4/'],
+#             ['/EPGSync/task1D_input1/','/EPG/task1D_local1/','/EPG/task1D_local2/','/EPG/task1D_local3/','/EPG/task1D_local4/'],
+#             ['/EPGSync/task2A_input1/','/EPG/task2A_local1/'],
+#             ['/EPGSync/task2B_input1/','/EPG/task2B_local1/'],
+#             ['/EPGSync/task3_input1/','/EPG/task3_local1/']]
+
+logging.basicConfig(filename="epg.log", level=logging.DEBUG, format="%(asctime)s %(message)s", filemode="w")
+logging.info(folder_prefix)
+logging.info(task_list)
+logging.info(file_ext)
 
 # Get init file list for task input folder
 for task in task_list:
@@ -101,7 +108,9 @@ for ii in range(1000):
 
 # Copy the new files to target task folders
     if len(copy_file_list) > 0:
-        print("New files are found.")
+#        print("New files are found.")
+        logging.info("New file is found.")
+        logging.info(copy_file_list)
         copy_file()
 
     time.sleep(1)
