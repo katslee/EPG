@@ -32,17 +32,22 @@ def copy_file():
         cp_filename = cp_file[cp_len]
         source = folder_prefix + cp_file[0][0] + cp_filename
         print(source)
+        copy_fail = False
         for i in range(len(cp_file[0]) - 1) :
             target = folder_prefix + cp_file[0][i + 1]
             print(target)
-            shutil.copy2(source, target)
-        copy_file_list.remove(cp_file)
+            try:
+                shutil.copy2(source, target)
+            except:
+                print("Fail to copy file " + source + " to " + target)
+                copy_fail = True
+        if not copy_fail:
+            copy_file_list.remove(cp_file)
         index = task_list.index(cp_file[0])
         timestamp_str = time.strftime('%m/%d/%Y %H:%M:%S',
                                       time.gmtime(os.path.getmtime(folder_prefix + cp_file[0][1] + cp_file[1])))
         append = folder_prefix + cp_file[0][1] + cp_file[1] + '@' + timestamp_str
         current_file_list[index].append(folder_prefix + cp_file[0][0] + cp_file[1] + '@' + timestamp_str) # append should include timestamp, find it
-    copy_file_list = [] # clear copy_file_list after copied
 
 # main
 
@@ -52,10 +57,10 @@ file_ext = '*.txt'
 current_file_list = []
 copy_file_list = []
 del_file_list = []
-task_list = [['/EPGSync/task1A_input1/','/EPGSync/task1A_output1/','/EPGSync/task1A_output2/','/EPGSync/task1A_output3/','/EPGSync/task1A_output4'],
-             ['/EPGSync/task1B_input1/','/EPGSync/task1B_output1/','/EPGSync/task1B_output2/','/EPGSync/task1B_output3/','/EPGSync/task1B_output4'],
-             ['/EPGSync/task1C_input1/','/EPGSync/task1C_output1/','/EPGSync/task1C_output2/','/EPGSync/task1C_output3/','/EPGSync/task1C_output4'],
-             ['/EPGSync/task1D_input1/','/EPGSync/task1D_output1/','/EPGSync/task1D_output2/','/EPGSync/task1D_output3/','/EPGSync/task1D_output4'],
+task_list = [['/EPGSync/task1A_input1/','/EPGSync/task1A_output1/','/EPGSync/task1A_output2/','/EPGSync/task1A_output3/','/EPGSync/task1A_output4/'],
+             ['/EPGSync/task1B_input1/','/EPGSync/task1B_output1/','/EPGSync/task1B_output2/','/EPGSync/task1B_output3/','/EPGSync/task1B_output4/'],
+             ['/EPGSync/task1C_input1/','/EPGSync/task1C_output1/','/EPGSync/task1C_output2/','/EPGSync/task1C_output3/','/EPGSync/task1C_output4/'],
+             ['/EPGSync/task1D_input1/','/EPGSync/task1D_output1/','/EPGSync/task1D_output2/','/EPGSync/task1D_output3/','/EPGSync/task1D_output4/'],
              ['/EPGSync/task2A_input1/','/EPGSync/task2A_output1/'],
              ['/EPGSync/task2B_input1/','/EPGSync/task2B_output1/'],
              ['/EPGSync/task3_input1/','/EPGSync/task3_output1/']]
