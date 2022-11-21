@@ -53,17 +53,26 @@ def copy_file():
 
 folder_prefix = '/Users/Kats/Downloads/EPG'
 #folder_prefix = 'E:/Downloads/'
+folder_prefix = ''
 file_ext = '*.txt'
 current_file_list = []
 copy_file_list = []
 del_file_list = []
-task_list = [['/EPGSync/task1A_input1/','/EPGSync/task1A_output1/','/EPGSync/task1A_output2/','/EPGSync/task1A_output3/','/EPGSync/task1A_output4/'],
+#task_list = [['/EPGSync/task1A_input1/','/EPGSync/task1A_output1/','/EPGSync/task1A_output2/','/EPGSync/task1A_output3/','/EPGSync/task1A_output4/'],
              ['/EPGSync/task1B_input1/','/EPGSync/task1B_output1/','/EPGSync/task1B_output2/','/EPGSync/task1B_output3/','/EPGSync/task1B_output4/'],
              ['/EPGSync/task1C_input1/','/EPGSync/task1C_output1/','/EPGSync/task1C_output2/','/EPGSync/task1C_output3/','/EPGSync/task1C_output4/'],
              ['/EPGSync/task1D_input1/','/EPGSync/task1D_output1/','/EPGSync/task1D_output2/','/EPGSync/task1D_output3/','/EPGSync/task1D_output4/'],
              ['/EPGSync/task2A_input1/','/EPGSync/task2A_output1/'],
              ['/EPGSync/task2B_input1/','/EPGSync/task2B_output1/'],
              ['/EPGSync/task3_input1/','/EPGSync/task3_output1/']]
+
+task_list = [['/EPGSync/task1A_input1/','/EPG/task1A_local1/','/EPG/task1A_local2/','/EPG/task1A_local3/','/EPG/task1A_local4/'],
+             ['/EPGSync/task1B_input1/','/EPG/task1B_local1/','/EPG/task1B_local2/','/EPG/task1B_local3/','/EPG/task1B_local4/'],
+             ['/EPGSync/task1C_input1/','/EPG/task1C_local1/','/EPG/task1C_local2/','/EPG/task1C_local3/','/EPG/task1C_local4/'],
+             ['/EPGSync/task1D_input1/','/EPG/task1D_local1/','/EPG/task1D_local2/','/EPG/task1D_local3/','/EPG/task1D_local4/'],
+             ['/EPGSync/task2A_input1/','/EPG/task2A_local1/'],
+             ['/EPGSync/task2B_input1/','/EPG/task2B_local1/'],
+             ['/EPGSync/task3_input1/','/EPG/task3_local1/']]
 
 # Get init file list for task input folder
 for task in task_list:
