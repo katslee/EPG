@@ -52,7 +52,7 @@ def copy_file():
         current_file_list[index].append(folder_prefix + cp_file[0][0] + cp_file[1] + '@' + timestamp_str) # append should include timestamp, find it
 
 # main
-
+Loop = True
 folder_prefix = '/Users/Kats/Downloads/EPG'
 #folder_prefix = 'E:/Downloads/'
 #folder_prefix = ''
@@ -86,7 +86,7 @@ for task in task_list:
     folder_in = task[0]
     current_file_list.append(get_file_list(folder_prefix + folder_in, file_ext))
 
-for ii in range(1000):
+while (Loop):
     for task in task_list:
         checking_folder = folder_prefix + task[0]
         check_file_list = get_file_list(folder_prefix + task[0], file_ext)
@@ -104,6 +104,7 @@ for ii in range(1000):
         del_files = list(set(current_file_list[i]).difference(check_file_list))
         if del_files != []:
             for del_file in del_files:
+                logging.info("Files remove in monitoring list." + del_file)
                 current_file_list[i].remove(del_file)
 
 # Copy the new files to target task folders
@@ -113,6 +114,6 @@ for ii in range(1000):
         logging.info(copy_file_list)
         copy_file()
 
-    time.sleep(1)
+    time.sleep(5)
 
 print("Done")
