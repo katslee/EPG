@@ -53,8 +53,8 @@ def copy_file():
 
 # main
 Loop = True
-folder_prefix = '/Users/Kats/Downloads/EPG'
-#folder_prefix = 'E:/Downloads/'
+#folder_prefix = '/Users/Kats/Downloads/EPG'
+folder_prefix = 'E:/Downloads/'
 #folder_prefix = ''
 file_ext = '*.txt'
 current_file_list = []
@@ -76,7 +76,7 @@ task_list = [['/EPGSync/task1A_input1/','/EPGSync/task1A_output1/','/EPGSync/tas
 #             ['/EPGSync/task2B_input1/','/EPG/task2B_local1/'],
 #             ['/EPGSync/task3_input1/','/EPG/task3_local1/']]
 
-logging.basicConfig(filename="epg.log", level=logging.DEBUG, format="%(asctime)s %(message)s", filemode="w")
+logging.basicConfig(filename="epg.log", level=logging.DEBUG, format="%(asctime)s %(message)s", filemode="a")
 logging.info(folder_prefix)
 logging.info(task_list)
 logging.info(file_ext)
